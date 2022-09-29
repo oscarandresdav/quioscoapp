@@ -4,7 +4,7 @@ import { formatearDinero } from "../helpers";
 import useQuiosco from "../hooks/useQuiosco";
 
 const ModalProducto = () => {
-  const { producto, handleChangeModal } = useQuiosco();
+  const { producto, handleChangeModal, handleAgregarPedido } = useQuiosco();
   const [cantidad, setCantidad] = useState(1);
 
   return (
@@ -38,51 +38,61 @@ const ModalProducto = () => {
         <p className="mt-5 font-black text-5xl text-amber-500">
           {formatearDinero(producto.precio)}
         </p>
-        <div className="flex gap-4 mt-6">
+        <div className="flex flex-col items-center my-3 p-3 border border-indigo-200 w-1/2 rounded-xl">
+          <div className="flex gap-4">
+            <button
+              type="button"
+              onClick={() => {
+                if (cantidad <= 1) return;
+                setCantidad(cantidad - 1);
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-7 h-7"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </button>
+            <p className="text-3xl">{cantidad}</p>
+            <button
+              type="button"
+              onClick={() => {
+                if (cantidad >= 5) return;
+                setCantidad(cantidad + 1);
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-7 h-7"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </button>
+          </div>
+
           <button
             type="button"
-            onClick={() => {
-              if (cantidad <= 1) return;
-              setCantidad(cantidad - 1);
-            }}
+            className="bg-indigo-600 hover:bg-indigo-800 px-5 py-2 mt-5 text-white font-bold uppercase rounded"
+            onClick={() => handleAgregarPedido({ ...producto, cantidad })}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-7 h-7"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </button>
-          <p className="text-3xl">{cantidad}</p>
-          <button
-            type="button"
-            onClick={() => {
-              if (cantidad >= 5) return;
-              setCantidad(cantidad + 1);
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-7 h-7"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+            Añadir al pedido
           </button>
         </div>
       </div>

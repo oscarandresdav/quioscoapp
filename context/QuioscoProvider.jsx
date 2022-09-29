@@ -8,6 +8,7 @@ const QuiscoProvider = ({ children }) => {
   const [categoriaActual, setCategoriaActual] = useState([]);
   const [producto, setProducto] = useState({});
   const [modal, setModal] = useState(false);
+  const [pedido, setPedido] = useState([]);
 
   const obtenerCategorias = async () => {
     const { data } = await axios("/api/categorias");
@@ -35,6 +36,10 @@ const QuiscoProvider = ({ children }) => {
     setModal(!modal);
   };
 
+  const handleAgregarPedido = ({categoriaId, imagen, ...producto}) => {
+    setPedido([...pedido, producto]);
+  };
+
   return (
     <QuioscoContext.Provider
       value={{
@@ -45,6 +50,7 @@ const QuiscoProvider = ({ children }) => {
         handleSetProducto,
         modal,
         handleChangeModal,
+        handleAgregarPedido,
       }}
     >
       {children}
