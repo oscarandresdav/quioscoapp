@@ -1,24 +1,29 @@
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
+import axios from "axios";
 
-const QuioscoContext = createContext()
+const QuioscoContext = createContext();
 
-const QuiscoProvider = ({children}) => {
+const QuiscoProvider = ({ children }) => {
+  const [categorias, setCategorias] = useState([]);
 
+  const obtenerCategorias = async () => {
+    const { data } = await axios("/api/categorias");
+    setCategorias(data);
+  };
 
-  return(
-    <QuioscoContext.Provider
+  useEffect(() => {
+    obtenerCategorias();
+  }, []);
+
+  return (
+    <QuioscoContext.Provider 
       value={{
-        
-
+        categorias
       }}
-    >
-      {children}
-    </QuioscoContext.Provider>
-  )
-}
+    >{children}</QuioscoContext.Provider>
+  );
+};
 
-export {
-  QuiscoProvider
-}
+export { QuiscoProvider };
 
-export default QuioscoContext
+export default QuioscoContext;
