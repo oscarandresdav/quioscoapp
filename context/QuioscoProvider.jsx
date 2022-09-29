@@ -41,6 +41,7 @@ const QuiscoProvider = ({ children }) => {
         categorias,
         categoriaActual,
         handleClickCategoria,
+        producto,
         handleSetProducto,
         modal,
         handleChangeModal,
