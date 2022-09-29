@@ -1,9 +1,11 @@
 import Image from "next/image";
+import { useState } from "react";
 import { formatearDinero } from "../helpers";
 import useQuiosco from "../hooks/useQuiosco";
 
 const ModalProducto = () => {
   const { producto, handleChangeModal } = useQuiosco();
+  const [cantidad, setCantidad] = useState(1);
 
   return (
     <div className="md:flex gap-10">
@@ -22,7 +24,7 @@ const ModalProducto = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-6 h-6"
+              className="w-9 h-9"
             >
               <path
                 fillRule="evenodd"
@@ -36,6 +38,53 @@ const ModalProducto = () => {
         <p className="mt-5 font-black text-5xl text-amber-500">
           {formatearDinero(producto.precio)}
         </p>
+        <div className="flex gap-4 mt-6">
+          <button
+            type="button"
+            onClick={() => {
+              if (cantidad <= 1) return;
+              setCantidad(cantidad - 1);
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-7 h-7"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </button>
+          <p className="text-3xl">{cantidad}</p>
+          <button
+            type="button"
+            onClick={() => {
+              if (cantidad >= 5) return;
+              setCantidad(cantidad + 1);
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-7 h-7"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );
