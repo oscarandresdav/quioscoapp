@@ -48,7 +48,7 @@ const QuiscoProvider = ({ children }) => {
       setPedido([...pedido, producto]);
     }
 
-    setPedido([...pedido, producto]);
+    setModal(false);
   };
 
   return (
@@ -61,6 +61,7 @@ const QuiscoProvider = ({ children }) => {
         handleSetProducto,
         modal,
         handleChangeModal,
+        pedido,
         handleAgregarPedido,
       }}
     >
