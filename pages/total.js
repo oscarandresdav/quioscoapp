@@ -1,5 +1,10 @@
+import Layout from "../layout/Layout";
+
 export default function Total() {
   return (
-    <div>total</div>
+    <Layout pagina="Datos y Total">
+      <h1 className="text-4xl font-black">Datos y Total</h1>
+      <p className="text-2xl my-10">Confirma tu pedido</p>
+    </Layout>
   )
 }
