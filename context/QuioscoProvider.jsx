@@ -36,7 +36,18 @@ const QuiscoProvider = ({ children }) => {
     setModal(!modal);
   };
 
-  const handleAgregarPedido = ({categoriaId, imagen, ...producto}) => {
+  const handleAgregarPedido = ({ categoriaId, imagen, ...producto }) => {
+    if (pedido.some((productoState) => productoState.id === producto.id)) {
+      // Actualizar la cnatidad
+
+      const pedidoActualizado = pedido.map((productoState) =>
+        productoState.id === producto.id ? producto : productoState
+      );
+      setPedido(pedidoActualizado);
+    } else {
+      setPedido([...pedido, producto]);
+    }
+
     setPedido([...pedido, producto]);
   };
 
