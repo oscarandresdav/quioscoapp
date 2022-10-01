@@ -1,12 +1,28 @@
+import { useCallback, useEffect } from "react";
+import useQuiosco from "../hooks/useQuiosco";
 import Layout from "../layout/Layout";
 
 export default function Total() {
+  const { pedido } = useQuiosco();
+
+  const comprobarPedido = useCallback(() => {
+    return pedido.length === 0;
+  }, [pedido]);
+
+  useEffect(() => {
+    comprobarPedido();
+  }, [pedido, comprobarPedido]);
+
+  const colocarOrden = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <Layout pagina="Datos y Total">
       <h1 className="text-4xl font-black">Datos y Total</h1>
       <p className="text-2xl my-10">Confirma tu pedido</p>
 
-      <form>
+      <form onSubmit={colocarOrden}>
         <div>
           <label
             htmlFor="nombre"
@@ -30,8 +46,13 @@ export default function Total() {
         <div className="mt-5">
           <input
             type="submit"
-            className="bg-indigo-600 w-full lg:w-auto px-5 py-2 rounded uppercase font-bold text-white text-center cursor-pointer"
+            className={`${
+              comprobarPedido()
+                ? "bg-indigo-100 cursor-not-allowed"
+                : "bg-indigo-600 hover:bg-indigo-800 cursor-pointer"
+            } w-full lg:w-auto px-5 py-2 rounded uppercase font-bold text-white text-center`}
             value="Confirmar Pedido"
+            disabled={comprobarPedido()}
           />
         </div>
       </form>
