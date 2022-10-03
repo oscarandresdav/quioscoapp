@@ -82,6 +82,12 @@ const QuiscoProvider = ({ children }) => {
 
   const colocarOrden = async (e) => {
     e.preventDefault();
+
+    try {
+      const {data} = await axios.post('/api/ordenes', { pedido, nombre, total, fecha: Date.now().toString() })
+    } catch (error) {
+      
+    }
   };
 
   return (
